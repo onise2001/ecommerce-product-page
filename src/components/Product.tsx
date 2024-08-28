@@ -137,7 +137,9 @@ const Product: React.FC<IProdcutProps> = ({ product, cart, setCart }) => {
           <StyledInputWrapper>
             <StyledInput
               ref={ref}
-              onChange={(event) => setValue(event.target.value)}
+              onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
+                setValue(parseInt(event.target.value))
+              }
               value={value}
               placeholder="0"
             />

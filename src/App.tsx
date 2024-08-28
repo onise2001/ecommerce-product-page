@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useState } from "react";
 import Header from "./components/Header";
 import Product from "./components/Product";
 import GlobalStyles from "./my-styled-components/GlobalStyles";
