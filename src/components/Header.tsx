@@ -304,9 +304,8 @@ const Cart = styled.div<{ $show: boolean }>`
   width: 36rem;
   min-height: 25.6rem;
   z-index: 1000;
-  bottom: -26.8rem;
-  left: 50%;
-  transform: translateX(-50%);
+  bottom: -29rem;
+  left: -27.5rem;
   border-radius: 10px;
   box-shadow: 0 20px 50px -20px rgba(29, 32, 38, 0.5);
   display: ${(props) => (props.$show ? "flex" : "none")};
