@@ -16,6 +16,11 @@ const Header: React.FC<IHeaderProps> = ({ cart, setCart }) => {
     setCart(newCart);
   };
 
+  const cartItemCount = cart.reduce((acc: number, item: ICartItem) => {
+    acc += item.quantity;
+    return acc;
+  }, 0);
+
   return (
     <HeaderWrapper>
       <StyledHeader>
@@ -45,6 +50,12 @@ const Header: React.FC<IHeaderProps> = ({ cart, setCart }) => {
           </Burger>
         </StyledDiv>
         <StyledDivProfile>
+          {cartItemCount > 0 ? (
+            <ItemCountContainer>
+              <ItemCountSpan>{cartItemCount}</ItemCountSpan>
+            </ItemCountContainer>
+          ) : null}
+
           <CartImg
             src="/images/icon-cart.svg"
             onClick={() => setShowCart(!showCart)}
@@ -108,11 +119,11 @@ const StyledHeader = styled.div`
   padding: 2rem 2.4rem 2.6rem;
   position: relative;
   max-width: 50.03rem;
-  @media only screen and (min-width: 1220px) {
+  @media only screen and (min-width: 768px) {
     margin-bottom: 9rem;
     max-width: 111rem;
     border-bottom: solid 1px #e4e9f2;
-    padding: 0;
+    padding: 2rem 2.4rem 2.6rem;
   }
 `;
 
@@ -121,7 +132,7 @@ const BurgerImg = styled.img`
     cursor: pointer;
   }
 
-  @media only screen and (min-width: 1220px) {
+  @media only screen and (min-width: 768px) {
     display: none;
   }
 `;
@@ -139,17 +150,44 @@ const Burger = styled.div<{ $toggle: boolean }>`
   gap: 5.3rem;
   transition: 0.3s ease-in;
   &::before {
-    display: absolute;
+    pointer-events: none;
+    content: "";
+    display: ${(props) => (props.$toggle ? "block" : "none")};
+    position: absolute;
     min-width: 100vw;
-    min-height: 90rem;
+    min-height: 100vh;
     top: 0;
-    right: 0;
-    left: 0;
-    bottom: 0;
+    left: 25rem;
     background-color: rgba(0, 0, 0, 0.5);
+    animation: fadeIn 0.3s;
+
+    @keyframes fadeIn {
+      0% {
+        opacity: 0;
+      }
+      20% {
+        opacity: 0.1;
+      }
+      40% {
+        opacity: 0.2;
+      }
+      60% {
+        opacity: 0.3;
+      }
+
+      80% {
+        opacity: 0.4;
+      }
+
+      100% {
+        opacity: 0.5;
+      }
+    }
+
+    z-index: 100;
   }
 
-  @media only screen and (min-width: 1220px) {
+  @media only screen and (min-width: 768px) {
     position: static;
     z-index: 1;
     flex-direction: row;
@@ -164,7 +202,7 @@ const StyledList = styled.ul`
   display: flex;
   flex-direction: column;
   gap: 2rem;
-  @media only screen and (min-width: 1220px) {
+  @media only screen and (min-width: 768px) {
     position: static;
     z-index: 1;
     flex-direction: row;
@@ -177,7 +215,7 @@ const StyledListItem = styled.li`
   line-height: 1.44;
   color: #1d2026;
 
-  @media only screen and (min-width: 1220px) {
+  @media only screen and (min-width: 768px) {
     padding: 4.1rem 0 4.5rem;
     font-size: 1.5rem;
     font-weight: 400;
@@ -208,7 +246,7 @@ const CrossImg = styled.img`
     cursor: pointer;
   }
 
-  @media only screen and (min-width: 1220px) {
+  @media only screen and (min-width: 768px) {
     display: none;
   }
 `;
@@ -228,7 +266,7 @@ const ProfileImg = styled.img`
   height: 2.4rem;
   border-radius: 50%;
   cursor: pointer;
-  @media only screen and (min-width: 1220px) {
+  @media only screen and (min-width: 768px) {
     width: 5rem;
     height: 5rem;
     border: solid 2px #ff7e1b;
@@ -240,7 +278,7 @@ const StyledDiv = styled.div`
   align-items: center;
   gap: 1.6rem;
 
-  @media only screen and (min-width: 1220px) {
+  @media only screen and (min-width: 768px) {
     gap: 5.6rem;
   }
 `;
@@ -249,6 +287,7 @@ const StyledDivProfile = styled.div`
   display: flex;
   align-items: center;
   gap: 2.4rem;
+  position: relative;
 `;
 const Cart = styled.div<{ $show: boolean }>`
   position: absolute;
@@ -263,6 +302,32 @@ const Cart = styled.div<{ $show: boolean }>`
   box-shadow: 0 20px 50px -20px rgba(29, 32, 38, 0.5);
   display: ${(props) => (props.$show ? "flex" : "none")};
   flex-direction: column;
+`;
+
+const ItemCountContainer = styled.div`
+  width: 1.9rem;
+  height: 1.3rem;
+  padding: 0.15rem 0.6rem 0.15rem;
+  background-color: #ff7e1b;
+  border-radius: 6.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  top: -0.4rem;
+  left: 0.9rem;
+
+  @media only screen and (min-width: 768px) {
+    top: 41%;
+    transform: translateY(-50%);
+  }
+`;
+
+const ItemCountSpan = styled.span`
+  font-size: 1rem;
+  color: #fff;
+  font-weight: bold;
+  text-align: center;
 `;
 
 const CartHeader = styled.p`
