@@ -91,7 +91,13 @@ const Header: React.FC<IHeaderProps> = ({ cart, setCart }) => {
                       />
                     </CartItem>
                   ))}
-                  <Checkout>Checkout</Checkout>
+                  <Checkout
+                    onClick={() => {
+                      setCart([]);
+                    }}
+                  >
+                    Checkout
+                  </Checkout>
                 </>
               ) : (
                 <Empty>Your cart is empty.</Empty>
@@ -150,7 +156,6 @@ const Burger = styled.div<{ $toggle: boolean }>`
   gap: 5.3rem;
   transition: 0.3s ease-in;
   &::before {
-    pointer-events: none;
     content: "";
     display: ${(props) => (props.$toggle ? "block" : "none")};
     position: absolute;
@@ -182,6 +187,10 @@ const Burger = styled.div<{ $toggle: boolean }>`
       100% {
         opacity: 0.5;
       }
+    }
+
+    @media only screen and (min-width: 768px) {
+      display: none;
     }
 
     z-index: 100;
@@ -402,6 +411,12 @@ const Checkout = styled.button`
   background-color: #ff7e1b;
   color: #fff;
   font-weight: bold;
+
+  cursor: pointer;
+
+  &:hover {
+    background-color: #ffab6a;
+  }
 `;
 
 export default Header;

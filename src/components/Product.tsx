@@ -334,13 +334,6 @@ const Carousel = styled.div<{ $currentSlide: number }>`
   }
 `;
 
-// const PopCarousel = styled(Carousel)`
-//   @media only screen and (min-width: 90rem) {
-//     transform: ${(props) => `translateX(-${props.$currentSlide * 100}%)`};
-//     gap: 3rem;
-//   }
-// `;
-
 const MainImage = styled.img`
   display: none;
 
@@ -587,6 +580,7 @@ const AddToCart = styled.button`
   width: 100%;
 
   &:hover {
+    background-color: #ffab6a;
   }
 `;
 
